@@ -1,0 +1,468 @@
+/* Import Google Font Fredoka One */
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
+/* Set the body background to clouds.jpg and center everything */
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background: url('img/clouds.jpg') no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  font-family: 'Fredoka One', 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
+}
+
+/* Remove box background for game UI, let it float on clouds */
+#game-container {
+  background: none;
+  border: none;
+  box-shadow: none;
+  width: 100vw;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  z-index: 2;
+  pointer-events: none;
+}
+#game-ui {
+  pointer-events: auto;
+  background: none;
+  box-shadow: none;
+  width: 100vw;
+  max-width: 100vw;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* HUD Row: tight hearts left, level/progress centered */
+.hud-row {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  align-items: start;
+  width: 100vw;
+  max-width: 1200px;
+  margin-top: 12px;
+  margin-bottom: 0;
+  position: relative;
+}
+.hud-left {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding-left: 2vw;
+}
+.lives {
+  display: flex;
+  gap: 4px; /* tighter hearts */
+}
+.lives svg {
+  width: 60px !important;
+  height: 60px !important;
+  transition: opacity 0.5s cubic-bezier(0.4,0,0.2,1), transform 0.5s cubic-bezier(0.4,0,0.2,1);
+  opacity: 1;
+  transform: scale(1);
+}
+.lives svg.heart-lost {
+  opacity: 0;
+  transform: scale(0.2) rotate(-30deg);
+  pointer-events: none;
+}
+.hud-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+.level-bar {
+  margin-bottom: 4px;
+}
+.progress-indicator {
+  margin: 0;
+}
+.hud-right {
+  /* empty for spacing */
+}
+
+/* Grass at the bottom */
+.grass-floor {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 120px;
+  z-index: 2;
+  pointer-events: none;
+  background: transparent;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+}
+.grass-img {
+  width: 100vw;
+  height: 120px;
+  object-fit: fill; /* Show the whole image, stretch if needed */
+  pointer-events: none;
+  user-select: none;
+  display: block;
+}
+
+/* Flowers above the grass */
+.flowers-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  position: relative; /* Needed for absolutely positioned butterfly */
+  width: 100%;
+  margin-bottom: 0;
+  min-height: 120px;
+}
+.flower-group {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 16vw;
+  min-width: 70px;
+  max-width: 160px;
+}
+.flower-img {
+  width: 100px;
+  height: auto;
+  filter: drop-shadow(0 4px 0 #388e3c);
+  z-index: 3;
+}
+.butterfly-img {
+  position: absolute;
+  bottom: 90px; /* Adjust so butterfly is above flowers */
+  left: 0;
+  width: 70px;
+  height: auto;
+  z-index: 2;
+  transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Jump arc: will animate transform: translateY(-40px) for jump */
+  pointer-events: none;
+}
+
+/* Clouds and rain */
+.clouds-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 90vw;
+  max-width: 1200px;
+  margin: 70px auto 0 auto; /* Higher up: increase margin-top */
+  min-height: 220px;
+  position: relative;
+}
+.cloud-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1 1 0;
+}
+.cloud-img {
+  width: 180px;
+  max-width: 22vw;
+  margin-bottom: 0;
+}
+
+/* Title Screen: Center title and button */
+#title-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background: url('img/clouds.jpg') no-repeat center center fixed;
+  background-size: cover;
+  position: relative;
+  z-index: 10;
+  text-align: center;
+}
+.title-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(33,150,243,0.92);
+  border-radius: 22px;
+  border: 4px solid #b3e6ff;
+  box-shadow: 0 6px 32px rgba(33,150,243,0.18);
+  padding: 36px 36px 32px 36px;
+  margin-bottom: 0;
+}
+.title-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin-bottom: 24px;
+}
+.title-row img {
+  width: 70px;
+  height: auto;
+  filter: drop-shadow(0 4px 0 #1976d2);
+}
+.title-row h1 {
+  font-size: 3.2rem;
+  letter-spacing: 3px;
+  color: #fff;
+  text-shadow: 2px 4px 0 #1976d2, 0 0 12px #4fc3f7;
+  margin: 0;
+  font-family: 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
+  background: none;
+  border: none;
+  padding: 0;
+  box-shadow: none;
+}
+#title-screen p {
+  color: #fff;
+  font-size: 1.2rem;
+  margin-bottom: 32px;
+  text-shadow: 1px 2px 0 #1976d2;
+}
+#start-btn {
+  font-family: 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
+  font-size: 1.5rem;
+  background: linear-gradient(90deg, #b3e6ff 0%, #4fc3f7 100%);
+  color: #034d21;
+  border: 4px solid #1976d2;
+  border-radius: 16px;
+  padding: 18px 48px;
+  cursor: pointer;
+  box-shadow: 0 6px 24px rgba(33,150,243,0.18);
+  margin-top: 12px;
+  margin-bottom: 0;
+  transition: background 0.2s, transform 0.2s, color 0.2s;
+  outline: none;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+#start-btn:hover, #start-btn:focus {
+  background: linear-gradient(90deg, #4fc3f7 0%, #b3e6ff 100%);
+  color: #1976d2;
+  transform: scale(1.06);
+  box-shadow: 0 8px 32px #2196f3aa;
+}
+
+.game-title {
+  font-family: 'Fredoka One', 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
+  font-size: 3.5rem;
+  color: #2196f3;
+  text-align: center;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-shadow: 0 4px 0 #fff, 0 8px 16px #1976d2;
+  margin-bottom: 48px;
+  margin-top: 0;
+  line-height: 1.1;
+  border-radius: 18px;
+  padding: 12px 32px;
+  background: rgba(255,255,255,0.10);
+  box-shadow: 0 4px 32px rgba(33,150,243,0.10);
+}
+
+.start-btn {
+  display: inline-block;
+  font-family: 'Fredoka One', 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
+  font-size: 2rem;
+  background: linear-gradient(90deg, #ffe066 0%, #ffd600 100%);
+  color: #1976d2;
+  border: 4px solid #fff;
+  border-radius: 32px;
+  padding: 22px 64px;
+  cursor: pointer;
+  box-shadow: 0 8px 32px rgba(255,214,0,0.18);
+  margin-top: 0;
+  margin-bottom: 0;
+  transition: background 0.18s, transform 0.18s, color 0.18s, box-shadow 0.18s;
+  outline: none;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-shadow: 0 2px 0 #fff, 0 4px 12px #ffd60099;
+}
+.start-btn:hover, .start-btn:focus {
+  background: linear-gradient(90deg, #ffd600 0%, #ffe066 100%);
+  color: #fff;
+  transform: scale(1.06) rotate(-2deg);
+  box-shadow: 0 12px 36px #ffd60099;
+}
+
+/* Title screen box */
+.title-screen-box {
+  background: #2b83db;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.18);
+  backdrop-filter: blur(10px);
+  margin-bottom: 32px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 900px;
+  width: 100%;
+}
+.title-screen-box.instructions-section {
+  margin-top: 0;
+  margin-bottom: 0;
+  max-width: 1200px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 48px;
+  box-sizing: border-box;
+}
+.instructions-content {
+  color: #fff !important;
+  text-shadow: 0 2px 4px #0a2472;
+  font-size: 1.15rem;
+  line-height: 1.6;
+  max-width: 800px;
+  min-width: 400px;
+  width: 100%;
+  text-align: left;
+  margin-bottom: 24px;
+  margin-left: 0;
+  margin-right: 0;
+  box-sizing: border-box;
+}
+.instructions-images-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 18px;
+  width: 100%;
+  margin-top: 12px;
+}
+.instructions-images-row img {
+  width: 24%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  object-fit: cover;
+}
+.instructions-images-row img[alt="Boy with water"] {
+  width: 24%;
+  min-width: 120px;
+  max-width: 300px;
+  z-index: 1;
+}
+@media (max-width: 1100px) {
+  .instructions-section {
+    flex-direction: column;
+    gap: 24px;
+    max-width: 98vw;
+    align-items: center;
+  }
+  .instructions-content {
+    max-width: 98vw;
+    min-width: 0;
+  }
+  .instructions-images-row {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .instructions-images-row img {
+    width: 18vw;
+  }
+  .instructions-images-row img[alt="Boy with water"] {
+    width: 18vw;
+    min-width: 80px;
+    max-width: 220px;
+  }
+}
+@media (max-width: 700px) {
+  .title-screen-box, .instructions-section {
+    max-width: 99vw;
+    padding: 8px;
+  }
+  .instructions-content {
+    max-width: 98vw;
+    font-size: 1em;
+  }
+  .instructions-images-row img {
+    width: 14vw;
+  }
+  .instructions-images-row img[alt="Boy with water"] {
+    width: 14vw;
+    min-width: 60px;
+    max-width: 140px;
+  }
+}
+
+/* Animation for raindrops */
+.raindrop-anim {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  z-index: 5;
+  pointer-events: none;
+  animation: raindrop-fall 1.3s linear forwards;
+}
+
+@keyframes raindrop-fall {
+  0% {
+    opacity: 0.9;
+    transform: translateY(0);
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.7;
+    transform: translateY(var(--fall-distance, 400px));
+  }
+}
+
+/* Focus outlines for accessibility */
+button:focus, .touch-btn:focus {
+  outline: 3px solid #ffd600 !important;
+  outline-offset: 2px;
+}
+.reset-btn {
+  font-family: 'Fredoka One', 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
+  font-size: 1.3rem; /* smaller font size */
+  background: linear-gradient(90deg, #ffe066 0%, #ffd600 100%);
+  color: #1976d2;
+  border: 4px solid #fff;
+  border-radius: 32px;
+  padding: 10px 28px; /* smaller padding */
+  cursor: pointer;
+  box-shadow: 0 8px 32px rgba(255,214,0,0.18);
+  margin-top: 0;
+  margin-bottom: 0;
+  transition: background 0.18s, transform 0.18s, color 0.18s, box-shadow 0.18s;
+  outline: none;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-shadow: 0 2px 0 #fff, 0 4px 12px #ffd60099;
+}
+.reset-btn:hover, .reset-btn:focus {
+  background: linear-gradient(90deg, #ffd600 0%, #ffe066 100%);
+  color: #fff;
+  transform: scale(1.06) rotate(-2deg);
+  box-shadow: 0 12px 36px #ffd60099;
+}
