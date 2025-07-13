@@ -89,7 +89,7 @@ function showGameOverScreen(customMessage) {
   msg.style.zIndex = '1000';
   msg.style.boxShadow = '0 8px 32px #0005';
   msg.style.textAlign = 'center';
-  msg.style.fontFamily = 'Fredoka One, Comic Sans MS, Comic Sans, cursive, sans-serif';
+  msg.style.fontFamily = "'Proxima Nova', 'ProximaNova', Arial, Helvetica, sans-serif";
 
   // If the player completed the level, show extra info and points
   if (customMessage === 'You Saved Water! Level Complete') {

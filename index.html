@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Proxima Nova web font import (via Adobe Fonts or fallback) -->
+    <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/proxima-nova" />
   <meta charset="UTF-8">
-  <title>Sprinkle Saver</title>
+<title>Sprinkle Saver</title>
   <link rel="stylesheet" href="styles.css">
+
   <style>
     /* --- Game UI and Layout Styles --- */
     #game-container {
@@ -330,7 +333,10 @@
       <div class="title-screen-box">
         <div style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 28px;">
           <img src="img/logo.png" alt="Sprinkle Saver Logo Left" style="width: 80px; height: auto; filter: drop-shadow(0 2px 8px #1976d2aa);">
-          <h1 class="game-title" style="margin: 0;">Sprinkle Saver</h1>
+          <div style="display: flex; flex-direction: column; align-items: center;">
+            <h1 class="game-title" style="margin: 0; font-family: 'Proxima Nova', 'ProximaNova', Arial, Helvetica, sans-serif;">Sprinkle Saver</h1>
+            <a href="https://www.charitywater.org/" target="_blank" rel="noopener noreferrer" style="font-size: 1.7rem; font-family: 'Proxima Nova', 'ProximaNova', Arial, Helvetica, sans-serif; color: #ffe066; margin-top: 4px; text-decoration: none; cursor: pointer; text-shadow: 2px 2px 0 rgba(0,0,0,0.3); font-weight: bold; letter-spacing: 1px;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Charity: water</a>
+          </div>
           <img src="img/logo.png" alt="Sprinkle Saver Logo Right" style="width: 80px; height: auto; filter: drop-shadow(0 2px 8px #1976d2aa);">
         </div>
         <button id="start-btn" class="start-btn">Start Game</button>
@@ -340,7 +346,7 @@
           <!-- Removed img1.jpg and img3.png from the left side -->
         </div>
         <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; width:100%;">
-          <h2 style="color:#1976d2; font-size:2rem; margin-bottom:16px; margin-top:0; text-align:center; letter-spacing:1px; text-shadow:0 2px 0 #fff, 0 4px 12px #b3e6ff;">Instructions</h2>
+          <h2 style="color:#1976d2; font-size:2rem; margin-bottom:16px; margin-top:0; text-align:center; letter-spacing:1px; text-shadow:0 2px 0 #fff, 0 4px 12px #b3e6ff; font-family: 'Proxima Nova', 'ProximaNova', Arial, Helvetica, sans-serif;">Instructions</h2>
           <div class="instructions-content">
             <span style="font-size:1.3em; color:#fff; text-shadow:0 2px 4px #0a2472;">🌧️ Mission Brief</span><br>
             <span style="color:#fff; text-shadow:0 2px 4px #0a2472;">It’s raining in the backyard, but the water tap is still on! As the brave butterfly, your quest is to cross the garden, dodge the downpour, and turn off the tap to help save water for the flowers. Every drop counts—show the world you’re a true water hero!</span><br><br>

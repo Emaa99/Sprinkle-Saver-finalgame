@@ -12,7 +12,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  font-family: 'Fredoka One', 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
+  font-family: 'Proxima Nova', 'ProximaNova', Arial, Helvetica, sans-serif;
 }
 
 /* Remove box background for game UI, let it float on clouds */
@@ -225,7 +225,7 @@ body {
   color: #fff;
   text-shadow: 2px 4px 0 #1976d2, 0 0 12px #4fc3f7;
   margin: 0;
-  font-family: 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
+  font-family: 'Proxima Nova', 'ProximaNova', Arial, Helvetica, sans-serif;
   background: none;
   border: none;
   padding: 0;
@@ -262,7 +262,7 @@ body {
 }
 
 .game-title {
-  font-family: 'Fredoka One', 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
+  font-family: 'Proxima Nova', 'ProximaNova', Arial, Helvetica, sans-serif;
   font-size: 3.5rem;
   color: #2196f3;
   text-align: center;
@@ -280,7 +280,7 @@ body {
 
 .start-btn {
   display: inline-block;
-  font-family: 'Fredoka One', 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
+  font-family: 'Proxima Nova', 'ProximaNova', Arial, Helvetica, sans-serif;
   font-size: 2rem;
   background: linear-gradient(90deg, #ffe066 0%, #ffd600 100%);
   color: #1976d2;
@@ -443,7 +443,7 @@ button:focus, .touch-btn:focus {
   outline-offset: 2px;
 }
 .reset-btn {
-  font-family: 'Fredoka One', 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
+  font-family: 'Proxima Nova', 'ProximaNova', Arial, Helvetica, sans-serif;
   font-size: 1.3rem; /* smaller font size */
   background: linear-gradient(90deg, #ffe066 0%, #ffd600 100%);
   color: #1976d2;
