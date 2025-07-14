@@ -1,3 +1,6 @@
+// Preload splash sound effect
+const splashSound = new Audio('sound/waterSplash.mp3');
+
 // Get the Start Game button, the game UI, the game container, and the title screen
 const startBtn = document.getElementById('start-btn');
 const gameContainer = document.getElementById('game-container');
@@ -23,6 +26,15 @@ startBtn.addEventListener('click', () => {
 // Get references to the butterfly and flower groups
 const butterfly = document.getElementById('butterfly');
 const flowersRow = document.querySelector('.flowers-row');
+// Show splash animation at (x, y) relative to .flowers-row
+function showSplash(x, y) {
+  const splash = document.createElement('div');
+  splash.className = 'splash-anim';
+  splash.style.left = `${x - 30}px`;
+  splash.style.top = `${y - 30}px`;
+  document.querySelector('.flowers-row').appendChild(splash);
+  setTimeout(() => splash.remove(), 500);
+}
 const flowerGroups = Array.from(document.querySelectorAll('.flower-group'));
 
 // Array to store the center x positions of each flower
@@ -365,8 +377,19 @@ function createRaindrop(cloudIndex) {
   // Add to .flowers-row (so it's above the flowers and grass)
   flowersRow.appendChild(drop);
 
-  // Set random fall duration (1.0s to 1.7s)
-  const fallDuration = 1000 + Math.random() * 700;
+  // Set fall duration based on difficulty
+  // Easy: super slow, Normal: normal, Hard: fast
+  let fallDuration;
+  if (window.selectedDifficulty === 'Easy') {
+    // Super slow: 2.5s to 3.2s
+    fallDuration = 2500 + Math.random() * 700;
+  } else if (window.selectedDifficulty === 'Hard') {
+    // Maximum speed: 60ms to 100ms
+    fallDuration = 60 + Math.random() * 40;
+  } else {
+    // Normal: 1.0s to 1.7s
+    fallDuration = 1000 + Math.random() * 700;
+  }
   drop.style.animationDuration = `${fallDuration}ms`;
 
   // Collision and cleanup logic
@@ -384,6 +407,14 @@ function createRaindrop(cloudIndex) {
     ) {
       if (!collided) {
         collided = true;
+        // Get butterfly position (center)
+        const flowersRowRect = flowersRow.getBoundingClientRect();
+        const centerX = butterflyRect.left - flowersRowRect.left + butterflyRect.width / 2;
+        const centerY = butterflyRect.top - flowersRowRect.top + butterflyRect.height / 2;
+        showSplash(centerX, centerY);
+        // Play splash sound effect
+        splashSound.currentTime = 0;
+        splashSound.play();
         loseLife();
         drop.remove();
       }
@@ -429,6 +460,12 @@ function loseLife() {
     if (lives === 0) {
       endGame();
     }
+    // Show splash animation at butterfly's position
+    const butterflyRect = butterfly.getBoundingClientRect();
+    const flowersRowRect = flowersRow.getBoundingClientRect();
+    const centerX = butterflyRect.left - flowersRowRect.left + butterflyRect.width / 2;
+    const centerY = butterflyRect.top - flowersRowRect.top + butterflyRect.height / 2;
+    showSplash(centerX, centerY);
   }
 }
 
